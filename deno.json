@@ -4,7 +4,7 @@
     "hono": "jsr:@hono/hono@^4.12.10"
   },
   "tasks": {
-    "start": "deno run --allow-net main.tsx"
+    "start": "deno run --watch --allow-net main.tsx"
   },
   "compilerOptions": {
     "jsx": "precompile",

@@ -2,6 +2,7 @@ import { Hono } from "hono";
 import type { FC } from "hono/jsx";
 import { poweredBy } from "hono/powered-by";
 import { logger } from "hono/logger";
+import { Fragment } from "hono/jsx";
 
 const app = new Hono();
 
@@ -17,6 +18,18 @@ const View = () => {
     </html>
   );
 };
+
+app.use("*", async (c, next) => {
+  c.setRenderer((content) => {
+    return c.html(
+      <html>
+        <head></head>
+        <body>{content}</body>
+      </html>,
+    );
+  });
+  await next();
+});
 
 app.get("/page", (c) => {
   return c.html(<View />);
@@ -39,14 +52,9 @@ const Layout: FC = (props) => {
 
 const Top: FC<{ messages: string[] }> = (props: { messages: string[] }) => {
   return (
-    <Layout>
-      <h1>Hello Hono!</h1>
-      <ul>
-        {props.messages.map((message) => {
-          return <li>{message}!!</li>;
-        })}
-      </ul>
-    </Layout>
+    <Fragment>
+      <p>Hello World!!</p>
+    </Fragment>
   );
 };
 
